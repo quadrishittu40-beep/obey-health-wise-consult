@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0878c9"><link rel="icon" href="/assets/obey-health-wise-logo.png"><link rel="stylesheet" href="/admin.css"><title>Staff Dashboard | OBEY HEALTH WISE</title></head>
+<body>
+<header class="bar"><a class="brand" href="/"><img src="/assets/obey-health-wise-logo.png" alt=""><span><b>OBEY HEALTH WISE</b><small>STAFF PORTAL</small></span></a><div id="staffActions" hidden><span class="secure">● Secure session</span><button id="logout" class="outline">Sign out</button></div></header>
+<main>
+<section id="loginView" class="login-wrap"><div class="login-card"><div class="symbol">✚</div><p class="eyebrow">AUTHORISED PERSONNEL ONLY</p><h1>Staff sign in</h1><p class="muted">Sign in to review service requests and manage appointment status.</p><form id="loginForm"><label>Admin access key<input id="accessKey" type="password" autocomplete="current-password" required placeholder="Enter your staff access key"></label><button class="primary" type="submit">Sign in securely →</button><p id="loginMessage" class="message" role="status"></p></form><small>Access is restricted. Do not share your staff credentials.</small></div></section>
+<section id="dashboardView" hidden>
+<div class="welcome"><div><p class="eyebrow">CARE OPERATIONS</p><h1>Service requests</h1><p class="muted">Review incoming requests and keep their status up to date.</p></div><button id="refresh" class="outline">↻ Refresh</button></div>
+<div class="metrics"><article><span>Total requests</span><b id="total">0</b></article><article><span>New / pending</span><b id="pending">0</b></article><article><span>Scheduled</span><b id="scheduled">0</b></article><article><span>Completed</span><b id="completed">0</b></article></div>
+<div class="toolbar"><div><h2>Request register</h2><p class="muted">Only access information needed to coordinate care.</p></div><div class="filters"><input id="search" placeholder="Search name, phone or reference…" aria-label="Search requests"><select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option value="new">New</option><option value="contacted">Contacted</option><option value="scheduled">Scheduled</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div></div>
+<div id="notice" class="notice" role="status"></div><div id="requestList" class="request-list"></div>
+<div class="footnote">Confidential health-service information. Use only for authorised care coordination. Do not download, share or retain patient details outside approved procedures.</div>
+</section></main>
+<script src="/admin.js" defer></script></body></html>

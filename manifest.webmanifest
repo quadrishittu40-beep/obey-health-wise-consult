@@ -1,0 +1,16 @@
+{
+  "name": "OBEY HEALTH WISE",
+  "short_name": "OBEY HEALTH",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7faff",
+  "theme_color": "#0878c9",
+  "icons": [
+    {
+      "src": "/assets/obey-health-wise-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

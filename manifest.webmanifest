@@ -1,16 +1,32 @@
 {
+  "id": "/",
   "name": "OBEY HEALTH WISE",
   "short_name": "OBEY HEALTH",
+  "description": "Request nursing and health screening services from OBEY HEALTH WISE.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#f7faff",
   "theme_color": "#0878c9",
   "icons": [
     {
-      "src": "/assets/obey-health-wise-logo.png",
-      "sizes": "any",
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

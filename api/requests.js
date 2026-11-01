@@ -1,3 +1,4 @@
+
 function json(res, status, body) {
   res.setHeader("Content-Type", "application/json");
   return res.status(status).send(JSON.stringify(body));
@@ -77,37 +78,6 @@ async function sendNotification(payload) {
   if (!response.ok) {
     const error = await response.text();
     throw new Error(`Resend failed (${response.status}): ${error.slice(0, 300)}`);
-  }
-}
-
-async function sendWhatsApp(payload) {
-  const { CALLMEBOT_PHONE, CALLMEBOT_API_KEY } = process.env;
-
-  if (!CALLMEBOT_PHONE || !CALLMEBOT_API_KEY) {
-    console.error("WhatsApp notification skipped: CallMeBot variables are missing.");
-    return;
-  }
-
-  // Only non-identifying details are sent through the third-party service.
-  const text =
-    `New OBEY HEALTH WISE request\n` +
-    `Ref: ${payload.reference}\n` +
-    `Service: ${payload.service}\n` +
-    `Date: ${payload.preferred_date}\n` +
-    `Open the admin dashboard to view details.`;
-
-  const url =
-    `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(CALLMEBOT_PHONE)}` +
-    `&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(CALLMEBOT_API_KEY)}`;
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 4000);
-
-  try {
-    const response = await fetch(url, { signal: controller.signal });
-    if (!response.ok) throw new Error(`CallMeBot failed (${response.status})`);
-  } finally {
-    clearTimeout(timer);
   }
 }
 
@@ -205,18 +175,11 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Notifications are sent only after the request has been saved successfully.
-    // A failed notification never blocks the customer's request.
-    const results = await Promise.allSettled([
-      sendNotification(payload),
-      sendWhatsApp(payload)
-    ]);
-
-    if (results[0].status === "rejected") {
-      console.error("Email notification failed:", results[0].reason?.message);
-    }
-    if (results[1].status === "rejected") {
-      console.error("WhatsApp notification failed:", results[1].reason?.message);
+    // Email is sent only after the request has been saved successfully.
+    try {
+      await sendNotification(payload);
+    } catch (emailError) {
+      console.error("Email notification failed:", emailError.message);
     }
 
     return json(res, 201, {
